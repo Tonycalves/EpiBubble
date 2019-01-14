@@ -12,8 +12,5 @@ EditorBuildSettings:
     path: Assets/LevelBoard/Scene/BoardLevel.unity
     guid: 22a387c38c0eb4c828609c546d6abb8d
   - enabled: 1
-    path: Assets/GameLevel/Scene/Level1Scene.unity
-    guid: 2912baf784a8e4b15be7e9a3abf53b4f
-  - enabled: 1
-    path: Assets/1/Scenes/BubbleScene.unity
+    path: Assets/GameLevel/1/Scenes/Level1.unity
     guid: 08f09a6ebe56941e5a673450517e5d88
