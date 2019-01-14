@@ -19,6 +19,12 @@ namespace com.alphakush{
 	
 	private bool isAiming = false;
 	private bool isPlaying = false;
+	private bool UsedKeyBoard = false;
+	private Vector3 SavePosMouse;
+
+	private Vector2 SaveDotKeyBoard;
+	private float xArrow;
+	private float yArrow;
 
 	public Image BorderRight;
 	public Image BorderLeft;
@@ -29,6 +35,10 @@ namespace com.alphakush{
 	}
 
 	void Start () {
+		xArrow = 0.0f;
+		yArrow = 3.21f;
+		SaveDotKeyBoard = new Vector2(xArrow,yArrow);
+
 		BorderRight = GameObject.Find("BorderRight").GetComponent<Image>();
 		BorderLeft = GameObject.Find("BorderLeft").GetComponent<Image>();
 		BorderBottom = GameObject.Find("BorderBottom").GetComponent<Image>();
@@ -37,6 +47,7 @@ namespace com.alphakush{
 		BorderBottom.enabled = false;
 		this.isAiming = true;
 		this.isPlaying = true;
+		this.UsedKeyBoard = false;
 		_camera = GameObject.Find("Main Camera");
 		_hud = _camera.AddComponent<HUD>();
 		_hud.game = this._game;
@@ -62,38 +73,44 @@ namespace com.alphakush{
 			if (Input.mousePosition.x >= BorderRight.transform.position.x || Input.mousePosition.x <= BorderLeft.transform.position.x || Input.mousePosition.y <= BorderBottom.transform.position.y) {
 				EventManager.DisableCursor();
 			} else {
-				isAiming = true;
+				if (Input.mousePosition != SavePosMouse)
+					isAiming = true;
 			}
 		}
-		//Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow)
-		//GetKey
-		//GetKeyDown
 		if (isAiming) {
 			selectedShooter = shooters[0];
 			TouchMove(Input.mousePosition);
 			if (Input.touches.Length > 0) {
 				Touch touch = Input.touches [0];
 				if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended) {
-					TouchUp (Input.mousePosition);
+					TouchUp ();
 				} else if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary) {
 					TouchMove (touch.position);
 				}
-				TouchMove (touch.position);
+				TouchMove(touch.position);
 				return;
-			} else if (Input.GetMouseButtonUp (0) || Input.GetKeyDown(KeyCode.Space)) {
+			} else if (Input.GetMouseButtonUp (0)) {
 				mouseDown = false;
-				TouchUp (Input.mousePosition);
+				TouchUp ();
 			} else if (mouseDown) {
 				TouchMove (Input.mousePosition);
 			}
-			if (Input.GetKeyDown(KeyCode.Space)){
-				Debug.Log("Space Pressed");
-			} else if (Input.GetKey(KeyCode.RightArrow)){
-				Debug.Log("RightArrow Pressed");
-			} else if (Input.GetKey(KeyCode.LeftArrow)){
-				Debug.Log("LeftArrow Pressed");
-			}
 		}
+		if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow)){
+			isAiming = false;
+		}
+		if (isAiming == false){
+			TouchMove(SaveDotKeyBoard);
+			if (Input.GetKeyDown(KeyCode.Space)){
+			isAiming = false;
+			TouchUp();
+		} else if (Input.GetKey(KeyCode.RightArrow)){
+			TouchMoveRightKeyboard();
+		} else if (Input.GetKey(KeyCode.LeftArrow)){
+			TouchMoveLeftKeyboard();
+		}
+		}
+		
 	}
 
 	protected virtual void onBubblesRemoved(int bubbleCount, bool exploded){
@@ -115,16 +132,39 @@ namespace com.alphakush{
 		this.isPlaying = false;
 	}
 
-	void TouchUp (Vector2 touch) {
+	void TouchUp () {
 		if (selectedShooter == null)
 			return;
-		selectedShooter.HandleTouchUp(touch);
+		selectedShooter.HandleTouchUp();
 	}
 
 	void TouchMove (Vector2 touch) {
 		if (selectedShooter == null)
 			return;
-		selectedShooter.HandleTouchMove (touch);
+		SavePosMouse = Input.mousePosition;
+		selectedShooter.HandleTouchMove(touch);
+	}
+
+	void TouchMoveLeftKeyboard(){
+		if (selectedShooter == null)
+			return;
+		isAiming = false;
+		selectedShooter.HandleTouchMoveKeyBoardLeft();
+		var direction = new Vector2 (xArrow - 0.1f, yArrow + 0.0f);
+		xArrow = direction.x;
+		yArrow = direction.y;
+		SaveDotKeyBoard = new Vector2 (xArrow,yArrow);
+	}
+
+	void TouchMoveRightKeyboard(){
+		if (selectedShooter == null)
+			return;
+		isAiming = false;
+		selectedShooter.HandleTouchMoveKeyBoardRight();
+		var direction = new Vector2 (xArrow + 0.1f, yArrow + 0.0f);
+		xArrow = direction.x;
+		yArrow = direction.y;
+		SaveDotKeyBoard = new Vector2 (xArrow,yArrow);
 	}
 }
 }

@@ -30,9 +30,13 @@ namespace com.alphakush {
 		private float dotGap = 0.42f;
 		private float bulletProgress = 0.0f;
 		private float bulletIncrement = 0.0f;
+		private float xArrow;
+		private float yArrow;
 
 		// Use this for initialization
 		void Start () {
+			xArrow = 0.0f;
+			yArrow = 3.21f;
 			RandomColourReady = false;
 			dots = new List<Vector2> ();
 			dotsPool = new List<GameObject> ();
@@ -57,12 +61,12 @@ namespace com.alphakush {
 			RandomNextBubble();
 		}
 
-		public void HandleTouchUp (Vector2 touch) { // Tir de la boule
+		public void HandleTouchUp () { // Tir de la boule
 			if (bullet.gameObject.activeSelf)
 				return;
 			if (dots == null || dots.Count < 2)
 				return;
-			
+
 			ClearShotPath ();
 			bulletProgress = 0.0f;
 			bullet.SetType(type);
@@ -113,11 +117,93 @@ namespace com.alphakush {
 			foreach (var d in dotsPool)
 				d.SetActive (false);
 
-			Vector2 point = Camera.main.ScreenToWorldPoint (touch);
+			Vector2 point = Camera.main.ScreenToWorldPoint(touch);
 			var direction = new Vector2 (point.x - transform.position.x, point.y - transform.position.y);
-
 			RaycastHit2D hit = Physics2D.Raycast(transform.position, direction);
 
+
+			if (hit.collider != null) {
+				dots.Add (transform.position);
+
+				if (hit.collider.tag == "SideWall") {
+					DoRayCast (hit, direction);
+				} else {
+					dots.Add (hit.point);
+					DrawPaths ();
+				}
+			}
+		}
+
+		public void HandleTouchMoveKeyBoard (Vector2 touch) {
+
+			if (bullet.gameObject.activeSelf)
+				return;
+			if (dots == null) {
+				return;
+			}
+
+			dots.Clear ();
+
+			foreach (var d in dotsPool)
+				d.SetActive (false);
+
+			var direction = new Vector2 (xArrow, yArrow);
+			RaycastHit2D hit = Physics2D.Raycast(transform.position, direction);
+
+
+			if (hit.collider != null) {
+				dots.Add (transform.position);
+
+				if (hit.collider.tag == "SideWall") {
+					DoRayCast (hit, direction);
+				} else {
+					dots.Add (hit.point);
+					DrawPaths ();
+				}
+			}
+		}
+
+		public void HandleTouchMoveKeyBoardRight () {
+			if (bullet.gameObject.activeSelf)
+				return;
+			if (dots == null) {
+				return;
+			}
+			dots.Clear ();
+			foreach (var d in dotsPool)
+				d.SetActive (false);
+
+			var direction = new Vector2 (xArrow + 0.1f, yArrow + 0.0f);
+			xArrow = direction.x;
+			yArrow = direction.y;
+			RaycastHit2D hit = Physics2D.Raycast(transform.position, direction);
+
+			if (hit.collider != null) {
+				dots.Add (transform.position);
+
+				if (hit.collider.tag == "SideWall") {
+					DoRayCast (hit, direction);
+				} else {
+					dots.Add (hit.point);
+					DrawPaths ();
+				}
+			} 
+		}
+
+		public void HandleTouchMoveKeyBoardLeft () {
+			if (bullet.gameObject.activeSelf)
+				return;
+			if (dots == null) {
+				return;
+			}
+			dots.Clear ();
+			foreach (var d in dotsPool)
+				d.SetActive (false);
+
+			var direction = new Vector2 (xArrow - 0.1f, yArrow + 0.0f);
+			xArrow = direction.x;
+			yArrow = direction.y;
+			RaycastHit2D hit = Physics2D.Raycast(transform.position, direction);
 
 			if (hit.collider != null) {
 				
