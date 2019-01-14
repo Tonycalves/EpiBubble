@@ -11,6 +11,7 @@ namespace com.alphakush{
 	
 	public RayCastShooter[] shooters;
 	private RayCastShooter selectedShooter;
+
 	private bool mouseDown = false;
 	protected Game _game;
 	private HUD _hud;
@@ -18,8 +19,6 @@ namespace com.alphakush{
 	
 	private bool isAiming = false;
 	private bool isPlaying = false;
-
-	public Text Mouspos;
 
 	public Image BorderRight;
 	public Image BorderLeft;
@@ -33,7 +32,6 @@ namespace com.alphakush{
 		BorderRight = GameObject.Find("BorderRight").GetComponent<Image>();
 		BorderLeft = GameObject.Find("BorderLeft").GetComponent<Image>();
 		BorderBottom = GameObject.Find("BorderBottom").GetComponent<Image>();
-		Mouspos = GameObject.Find("Mousepos").GetComponent<Text>();
 		BorderRight.enabled = false;
 		BorderLeft.enabled = false;
 		BorderBottom.enabled = false;
@@ -67,7 +65,9 @@ namespace com.alphakush{
 				isAiming = true;
 			}
 		}
-		Mouspos.text = Input.mousePosition.ToString();
+		//Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow)
+		//GetKey
+		//GetKeyDown
 		if (isAiming) {
 			selectedShooter = shooters[0];
 			TouchMove(Input.mousePosition);
@@ -80,11 +80,18 @@ namespace com.alphakush{
 				}
 				TouchMove (touch.position);
 				return;
-			} else if (Input.GetMouseButtonUp (0)) {
+			} else if (Input.GetMouseButtonUp (0) || Input.GetKeyDown(KeyCode.Space)) {
 				mouseDown = false;
 				TouchUp (Input.mousePosition);
 			} else if (mouseDown) {
 				TouchMove (Input.mousePosition);
+			}
+			if (Input.GetKeyDown(KeyCode.Space)){
+				Debug.Log("Space Pressed");
+			} else if (Input.GetKey(KeyCode.RightArrow)){
+				Debug.Log("RightArrow Pressed");
+			} else if (Input.GetKey(KeyCode.LeftArrow)){
+				Debug.Log("LeftArrow Pressed");
 			}
 		}
 	}
@@ -111,7 +118,7 @@ namespace com.alphakush{
 	void TouchUp (Vector2 touch) {
 		if (selectedShooter == null)
 			return;
-		selectedShooter.HandleTouchUp (touch);
+		selectedShooter.HandleTouchUp(touch);
 	}
 
 	void TouchMove (Vector2 touch) {

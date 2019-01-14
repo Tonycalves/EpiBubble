@@ -9,13 +9,19 @@ namespace com.alphakush {
 	public class RayCastShooter : MonoBehaviour {
 
 		public GameObject[] colorsGO;
+		public GameObject[] colorsGO2;
+
 		public Ball.BALL_TYPE type;
+		public Ball.BALL_TYPE Nexttype;
 
 		public Game _game;
 
 		public GameObject dotPrefab;
 		public Bullet bullet;
+		public Bullet Nextbullet;
 		public Grid grid;
+
+		private bool RandomColourReady;
 
 		private List<Vector2> dots;
 		private List<GameObject> dotsPool;
@@ -27,6 +33,7 @@ namespace com.alphakush {
 
 		// Use this for initialization
 		void Start () {
+			RandomColourReady = false;
 			dots = new List<Vector2> ();
 			dotsPool = new List<GameObject> ();
 
@@ -47,8 +54,9 @@ namespace com.alphakush {
 				i++;
 			}
 			RandomBubble();
+			RandomNextBubble();
 		}
-			
+
 		public void HandleTouchUp (Vector2 touch) { // Tir de la boule
 			if (bullet.gameObject.activeSelf)
 				return;
@@ -56,21 +64,40 @@ namespace com.alphakush {
 				return;
 			
 			ClearShotPath ();
-			
 			bulletProgress = 0.0f;
 			bullet.SetType(type);
 			bullet.gameObject.SetActive (true);
 			bullet.transform.position = transform.position;
+			if (RandomColourReady == true){
+				type = Nexttype;
+				SetBubbleColour();
+			} else{
+				RandomBubble();
+			}
 			InitPath();
-			RandomBubble();
+			RandomNextBubble();
 		}
-		
+
 		public void RandomBubble() {
 			foreach (var go in colorsGO) {
 				go.SetActive(false);
 			}
 			type = (Ball. BALL_TYPE)Random.Range(0,5);
 			colorsGO[(int) type].SetActive(true);
+		}
+
+		public void SetBubbleColour() {
+			foreach (var go in colorsGO) {
+				go.SetActive(false);
+			}
+			colorsGO[(int) type].SetActive(true);
+		}
+
+		public void RandomNextBubble() {
+			Nexttype = (Ball. BALL_TYPE)Random.Range(0,5);
+			Nextbullet.SetType(Nexttype);
+			Nextbullet.gameObject.SetActive (true);
+			RandomColourReady = true;
 		}
 
 		public void HandleTouchMove (Vector2 touch) {

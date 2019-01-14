@@ -115,7 +115,7 @@ namespace com.alphakush{
 			}
 			EventManager.NbrOfShoot();
 			bullet.gameObject.SetActive (false);
-			minBall.SetType (bullet.type);
+			minBall.SetType(bullet.type);
 			minBall.gameObject.SetActive (true);
 			CheckMatchesForBall (minBall);
 			if (bullet.transform.position.y <= -3.54f){
@@ -387,7 +387,7 @@ namespace com.alphakush{
 
 		void Update () {
 			var p = transform.position;
-			if (NbrOfShoot % 6 == 0 && GridDown == true) {
+			if (NbrOfShoot % 10 == 0 && GridDown == true) {
 				p.y -= 0.3f;
 				transform.position = p;
 				if (gridBalls[gridBalls.Count - 1][0].transform.position.y < 6 ) {
@@ -395,7 +395,6 @@ namespace com.alphakush{
 				}
 				GridDown = false;
 			}
-			//p.y -= 1 * GRID_SPEED;
 			//p.y -= Time.deltaTime * GRID_SPEED;
 			// transform.position = p;
 			// if (gridBalls[gridBalls.Count - 1][0].transform.position.y < 6 ) {
