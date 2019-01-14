@@ -7,7 +7,6 @@ namespace com.alphakush.events{
 		public delegate void Event_ShootBall ();
 		public static event Event_ShootBall  OnShootBall;
 
-		/* Handler pour la suppression des bulles pour compter les points */
 		public delegate void BubblesRemovedHandler (int bubbleCount, bool exploded);
 		public static event BubblesRemovedHandler OnBubblesRemoved;
 

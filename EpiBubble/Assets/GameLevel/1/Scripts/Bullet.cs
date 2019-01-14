@@ -13,7 +13,7 @@ namespace com.alphakush{
 				go.SetActive(false);
 			}
 			this.type = type;
-			colorsGO [(int)type].SetActive (true);
+			colorsGO[(int)type].SetActive (true);
 		}	
 	}
 }

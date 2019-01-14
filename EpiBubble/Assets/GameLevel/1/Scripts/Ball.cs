@@ -26,7 +26,6 @@ namespace com.alphakush{
 		private Vector3 ballPosition;
 		private Grid grid;
 
-
 		public void SetBallPosition (Grid grid, int column, int row)
 		{
 			this.grid = grid;
@@ -35,9 +34,7 @@ namespace com.alphakush{
 
 			ballPosition = new Vector3 ( 
 				(column * grid.TILE_SIZE) - grid.GRID_OFFSET_X , 
-				 (row * grid.TILE_SIZE),
-
-				0);
+				 (row * grid.TILE_SIZE),0);
 			if (column % 2 == 0) {
 				ballPosition.y -= grid.TILE_SIZE * 0.5f;
 			}
@@ -51,7 +48,7 @@ namespace com.alphakush{
 
 		void OnTriggerEnter2D(Collider2D other) { // Fonction pour accrocher la balle sur la grille
 			if (other.tag == "bullet") {
-				var b = other.gameObject.GetComponent<Bullet> ();
+				var b = other.gameObject.GetComponent<Bullet>();
 				grid.AddBall (this, b);
 			}
 		}

@@ -225,10 +225,9 @@ namespace com.alphakush{
 			}
 		}
 
-
 		List<Ball> GetMatches (Ball ball) {
 			ball.visited = true;
-			var result = new List<Ball> () { ball };
+			var result = new List<Ball> () {ball};
 			var n = BallActiveNeighbors (ball);
 
 			foreach (var b in n) {
@@ -238,7 +237,6 @@ namespace com.alphakush{
 			}
 			return result;
 		}
-
 
 		void AddMatches (List<Ball> matches) {
 			foreach (var b in matches) {
@@ -261,7 +259,6 @@ namespace com.alphakush{
 				if (!gridBalls [ball.row] [ball.column + 1].gameObject.activeSelf)
 					result.Add (gridBalls [ball.row] [ball.column + 1]);
 			}
-
 			//left
 			if (ball.column - 1 >= 0) {
 				if (!gridBalls [ball.row] [ball.column - 1].gameObject.activeSelf)
@@ -272,21 +269,17 @@ namespace com.alphakush{
 				if (!gridBalls [ball.row - 1] [ball.column].gameObject.activeSelf)
 					result.Add (gridBalls [ball.row - 1] [ball.column]);
 			}
-
 			//bottom
 			if (ball.row + 1 < gridBalls.Count) {
 				if (!gridBalls [ball.row + 1] [ball.column].gameObject.activeSelf)
 					result.Add (gridBalls [ball.row + 1] [ball.column]);
 			}
-
 			if (ball.column % 2 == 0) {
-
 				//top-left
 				if (ball.row - 1 >= 0 && ball.column - 1 >= 0) {
 					if (!gridBalls [ball.row - 1] [ball.column - 1].gameObject.activeSelf)
 						result.Add (gridBalls [ball.row - 1] [ball.column - 1]);
 				}
-
 				//top-right
 				if (ball.row - 1 >= 0 && ball.column + 1 < COLUMNS) {
 					if (!gridBalls [ball.row - 1] [ball.column + 1].gameObject.activeSelf)
@@ -298,16 +291,12 @@ namespace com.alphakush{
 					if (!gridBalls [ball.row + 1] [ball.column - 1].gameObject.activeSelf)
 						result.Add (gridBalls [ball.row + 1] [ball.column - 1]);
 				}
-
 				//bottom-right
 				if (ball.row + 1 < gridBalls.Count && ball.column + 1 < COLUMNS) {
 					if (!gridBalls [ball.row + 1] [ball.column + 1].gameObject.activeSelf)
 						result.Add (gridBalls [ball.row + 1] [ball.column + 1]);
 				}
-
 			}
-
-
 			return result;
 		}
 
@@ -316,55 +305,47 @@ namespace com.alphakush{
 			var result = new List<Ball> ();
 			//right
 			if (ball.column + 1 < COLUMNS) {
-				if (gridBalls [ball.row] [ball.column + 1].gameObject.activeSelf)
-					result.Add (gridBalls [ball.row] [ball.column + 1]);
+				if (gridBalls[ball.row][ball.column+1].gameObject.activeSelf)
+					result.Add(gridBalls[ball.row][ball.column+1]);
 			}
-
 			//left
 			if (ball.column - 1 >= 0) {
-				if (gridBalls [ball.row] [ball.column - 1].gameObject.activeSelf)
-					result.Add (gridBalls [ball.row] [ball.column - 1]);
+				if (gridBalls[ball.row][ball.column-1].gameObject.activeSelf)
+					result.Add(gridBalls[ball.row][ball.column-1]);
 			}
 			//bottom
 			if (ball.row - 1 >= 0) {
-				if (gridBalls [ball.row - 1] [ball.column].gameObject.activeSelf)
-					result.Add (gridBalls [ball.row - 1] [ball.column]);
+				if (gridBalls[ball.row-1][ball.column].gameObject.activeSelf)
+					result.Add(gridBalls[ball.row-1][ball.column]);
 			}
-
 			//top
 			if (ball.row + 1 < gridBalls.Count) {
-				if (gridBalls [ball.row + 1] [ball.column].gameObject.activeSelf)
-					result.Add (gridBalls [ball.row + 1] [ball.column]);
+				if (gridBalls[ball.row+1][ball.column].gameObject.activeSelf)
+					result.Add(gridBalls[ball.row+1][ball.column]);
 			}
-
 			if (ball.column % 2 == 0) {
-
 				//top-left
 				if (ball.row - 1 >= 0 && ball.column - 1 >= 0) {
-					if (gridBalls [ball.row - 1] [ball.column - 1].gameObject.activeSelf)
-						result.Add (gridBalls [ball.row - 1] [ball.column - 1]);
+					if (gridBalls [ball.row-1][ball.column-1].gameObject.activeSelf)
+						result.Add(gridBalls[ball.row-1][ball.column - 1]);
 				}
-
 				//top-right
 				if (ball.row - 1 >= 0 && ball.column + 1 < COLUMNS) {
-					if (gridBalls [ball.row - 1] [ball.column + 1].gameObject.activeSelf)
-						result.Add (gridBalls [ball.row - 1] [ball.column + 1]);
+					if (gridBalls[ball.row-1][ball.column+1].gameObject.activeSelf)
+						result.Add(gridBalls[ball.row-1][ball.column+1]);
 				}
 			} else {
 				//bottom-left
 				if (ball.row + 1 < gridBalls.Count && ball.column - 1 >= 0) {
 					if (gridBalls [ball.row + 1] [ball.column - 1].gameObject.activeSelf)
-						result.Add (gridBalls [ball.row + 1] [ball.column - 1]);
+						result.Add(gridBalls[ball.row+1][ball.column-1]);
 				}
-
 				//bottom-right
 				if (ball.row + 1 < gridBalls.Count && ball.column + 1 < COLUMNS) {
-					if (gridBalls [ball.row + 1] [ball.column + 1].gameObject.activeSelf)
-						result.Add (gridBalls [ball.row + 1] [ball.column + 1]);
+					if (gridBalls [ball.row+1][ball.column+1].gameObject.activeSelf)
+						result.Add(gridBalls[ball.row+1][ball.column+1]);
 				}
-
 			}
-
 			return result;
 		}
 

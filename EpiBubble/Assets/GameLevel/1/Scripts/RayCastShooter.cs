@@ -134,7 +134,7 @@ namespace com.alphakush {
 			}
 		}
 
-		public void HandleTouchMoveKeyBoard (Vector2 touch) {
+		public void HandleTouchMoveKeyBoard () {
 
 			if (bullet.gameObject.activeSelf)
 				return;
@@ -143,13 +143,10 @@ namespace com.alphakush {
 			}
 
 			dots.Clear ();
-
 			foreach (var d in dotsPool)
 				d.SetActive (false);
-
 			var direction = new Vector2 (xArrow, yArrow);
 			RaycastHit2D hit = Physics2D.Raycast(transform.position, direction);
-
 
 			if (hit.collider != null) {
 				dots.Add (transform.position);

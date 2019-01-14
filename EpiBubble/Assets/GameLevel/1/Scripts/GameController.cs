@@ -100,7 +100,7 @@ namespace com.alphakush{
 			isAiming = false;
 		}
 		if (isAiming == false){
-			TouchMove(SaveDotKeyBoard);
+			TouchMoveKeyBoard();
 			if (Input.GetKeyDown(KeyCode.Space)){
 			isAiming = false;
 			TouchUp();
@@ -110,7 +110,6 @@ namespace com.alphakush{
 			TouchMoveLeftKeyboard();
 		}
 		}
-		
 	}
 
 	protected virtual void onBubblesRemoved(int bubbleCount, bool exploded){
@@ -143,6 +142,12 @@ namespace com.alphakush{
 			return;
 		SavePosMouse = Input.mousePosition;
 		selectedShooter.HandleTouchMove(touch);
+	}
+
+	void TouchMoveKeyBoard () {
+		if (selectedShooter == null)
+			return;
+		selectedShooter.HandleTouchMoveKeyBoard();
 	}
 
 	void TouchMoveLeftKeyboard(){
