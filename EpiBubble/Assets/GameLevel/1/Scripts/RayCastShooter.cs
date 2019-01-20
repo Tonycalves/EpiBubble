@@ -170,7 +170,7 @@ namespace com.alphakush {
 			foreach (var d in dotsPool)
 				d.SetActive (false);
 
-			var direction = new Vector2 (xArrow + 0.1f, yArrow + 0.0f);
+			var direction = new Vector2 (xArrow + 0.05f, yArrow + 0.0f);
 			xArrow = direction.x;
 			yArrow = direction.y;
 			RaycastHit2D hit = Physics2D.Raycast(transform.position, direction);
@@ -197,7 +197,7 @@ namespace com.alphakush {
 			foreach (var d in dotsPool)
 				d.SetActive (false);
 
-			var direction = new Vector2 (xArrow - 0.1f, yArrow + 0.0f);
+			var direction = new Vector2 (xArrow - 0.05f, yArrow + 0.0f);
 			xArrow = direction.x;
 			yArrow = direction.y;
 			RaycastHit2D hit = Physics2D.Raycast(transform.position, direction);

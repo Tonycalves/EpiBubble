@@ -32,7 +32,7 @@ namespace com.alphakush{
 		void Start () {
 			NbrOfShoot = 0;
 			GridDown = false;
-			
+
 			matchList = new List<Ball> ();
 			lastType = (Ball.BALL_TYPE)Random.Range (0, 5);
 			typePool = new List<Ball.BALL_TYPE> ();
@@ -94,7 +94,6 @@ namespace com.alphakush{
 				ball.SetBallPosition(this, column, gridBalls.Count-1);
 				ball.SetType (typePool [0]);
 				ball.connected = true;
-
 				typePool.RemoveAt (0);
 				rowBalls.Add (ball);
 			}
@@ -104,7 +103,7 @@ namespace com.alphakush{
 		public void AddBall (Ball collisionBall, Bullet bullet) {
 
 			var neighbors = BallEmptyNeighbors(collisionBall);
-			var minDistance = 10000.0f;
+			var minDistance = 1000000000000.0f;
 			Ball minBall = null;
 			foreach (var n in neighbors) {
 				var d = Vector2.Distance (n.transform.position, bullet.transform.position);
@@ -115,8 +114,10 @@ namespace com.alphakush{
 			}
 			EventManager.NbrOfShoot();
 			bullet.gameObject.SetActive (false);
-			minBall.SetType(bullet.type);
-			minBall.gameObject.SetActive (true);
+            Debug.Log("Bullet type = " + bullet.type);
+            minBall.SetType(bullet.type);
+            Debug.Log("minBall type = " + minBall.type);
+            minBall.gameObject.SetActive (true);
 			CheckMatchesForBall (minBall);
 			if (bullet.transform.position.y <= -3.54f){
 				this.FinishGame(GameState.Loose);
@@ -133,9 +134,8 @@ namespace com.alphakush{
 
 		public void CheckMatchesForBall (Ball ball) {
 
-			matchList.Clear ();
-
-			foreach (var r in gridBalls) {
+			matchList.Clear();
+            foreach (var r in gridBalls) {
 				foreach (var b in r) {
 					b.visited = false;
 				}
@@ -154,7 +154,7 @@ namespace com.alphakush{
 				}
 				if (allVisited) {
 
-					if (matchList.Count > 2) {
+					if (matchList.Count > 2) { // suppression des boules si correspondance
 						int indice = 0;
 						foreach (var b in matchList) {
 							b.gameObject.SetActive (false);

@@ -49,7 +49,7 @@ namespace com.alphakush{
 		void OnTriggerEnter2D(Collider2D other) { // Fonction pour accrocher la balle sur la grille
 			if (other.tag == "bullet") {
 				var b = other.gameObject.GetComponent<Bullet>();
-				grid.AddBall (this, b);
+                grid.AddBall (this, b);
 			}
 		}
 

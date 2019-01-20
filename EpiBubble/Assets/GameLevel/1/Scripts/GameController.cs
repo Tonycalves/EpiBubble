@@ -19,10 +19,8 @@ namespace com.alphakush{
 	
 	private bool isAiming = false;
 	private bool isPlaying = false;
-	private bool UsedKeyBoard = false;
 	private Vector3 SavePosMouse;
 
-	private Vector2 SaveDotKeyBoard;
 	private float xArrow;
 	private float yArrow;
 
@@ -37,7 +35,6 @@ namespace com.alphakush{
 	void Start () {
 		xArrow = 0.0f;
 		yArrow = 3.21f;
-		SaveDotKeyBoard = new Vector2(xArrow,yArrow);
 
 		BorderRight = GameObject.Find("BorderRight").GetComponent<Image>();
 		BorderLeft = GameObject.Find("BorderLeft").GetComponent<Image>();
@@ -47,7 +44,6 @@ namespace com.alphakush{
 		BorderBottom.enabled = false;
 		this.isAiming = true;
 		this.isPlaying = true;
-		this.UsedKeyBoard = false;
 		_camera = GameObject.Find("Main Camera");
 		_hud = _camera.AddComponent<HUD>();
 		_hud.game = this._game;
@@ -155,10 +151,9 @@ namespace com.alphakush{
 			return;
 		isAiming = false;
 		selectedShooter.HandleTouchMoveKeyBoardLeft();
-		var direction = new Vector2 (xArrow - 0.1f, yArrow + 0.0f);
+		var direction = new Vector2 (xArrow - 0.05f, yArrow + 0.0f);
 		xArrow = direction.x;
 		yArrow = direction.y;
-		SaveDotKeyBoard = new Vector2 (xArrow,yArrow);
 	}
 
 	void TouchMoveRightKeyboard(){
@@ -166,10 +161,9 @@ namespace com.alphakush{
 			return;
 		isAiming = false;
 		selectedShooter.HandleTouchMoveKeyBoardRight();
-		var direction = new Vector2 (xArrow + 0.1f, yArrow + 0.0f);
+		var direction = new Vector2 (xArrow + 0.05f, yArrow + 0.0f);
 		xArrow = direction.x;
 		yArrow = direction.y;
-		SaveDotKeyBoard = new Vector2 (xArrow,yArrow);
 	}
 }
 }

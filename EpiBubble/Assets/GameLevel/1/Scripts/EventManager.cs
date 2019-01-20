@@ -24,6 +24,7 @@ namespace com.alphakush.events{
 		public delegate void NumberOfShootHandler ();
 		public static event NumberOfShootHandler OnNumberOfShoot;
 
+
 		public static void BubblesRemoved(int bubbleCount, bool exploded){
 			if (OnBubblesRemoved != null){
 				OnBubblesRemoved(bubbleCount, exploded);
