@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using com.alphakush.sounds;
 
 namespace com.alphakush.gui{
 	public class GameFinishedGUI : MenuGUI {
@@ -15,6 +16,11 @@ namespace com.alphakush.gui{
 		protected override void  Start () {
 			mycanvas = GameObject.Find("Canvas").GetComponent<Canvas>();
 			Resultgame = GameObject.Find("GameState").GetComponent<Text>();
+			if (game.Win = true){
+				SoundManager.Instance.WinSound();
+				} else {
+					SoundManager.Instance.LooseSound();
+				}
 			Resultgame.text = "You " + game.state;
 			base.Start();
 		}

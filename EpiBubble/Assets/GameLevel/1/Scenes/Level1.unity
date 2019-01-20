@@ -259,6 +259,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShotBubbleSound: {fileID: 8300000, guid: 44ed9f58d5b244040adff3787e8734ac, type: 3}
   BubbleExplodeSound: {fileID: 8300000, guid: ace12b4f2c8cc4cc38d7f3209a96423f, type: 3}
+  Win: {fileID: 8300000, guid: e0c3181fb52a00c4e91adae2b488bc75, type: 3}
+  Loose: {fileID: 8300000, guid: 9babc79bfe555bb4695d04539af55ab0, type: 3}
 --- !u!1001 &114276759
 PrefabInstance:
   m_ObjectHideFlags: 0

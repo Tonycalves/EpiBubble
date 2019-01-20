@@ -14,6 +14,7 @@ namespace com.alphakush{
 		private int _shootnumber;
 
 		public GameState state;
+		public bool Win;
 		
 		public Game(){
 			this._points = 0;

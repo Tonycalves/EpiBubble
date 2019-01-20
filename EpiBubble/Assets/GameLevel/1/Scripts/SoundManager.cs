@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 namespace com.alphakush.sounds{
   public class SoundManager : MonoBehaviour
@@ -8,6 +9,10 @@ namespace com.alphakush.sounds{
 
       public AudioClip ShotBubbleSound;
       public AudioClip BubbleExplodeSound;
+      public AudioClip Win;
+      public AudioClip Loose;
+/*      public AudioClip ButtonCliqueSound;
+      public AudioClip GameMusicSound;*/
 
       void Awake()
       {
@@ -30,9 +35,21 @@ namespace com.alphakush.sounds{
         MakeSound(ShotBubbleSound);
       }
 
+      public void WinSound()
+      {
+        ////SoundManager.Instance.WinSound();
+        MakeSound(Win);
+      }
+      public void LooseSound()
+      {
+        ////SoundManager.Instance.LooseSound();
+        MakeSound(Loose);
+      }
+
       private void MakeSound(AudioClip originalClip)
       {
         AudioSource.PlayClipAtPoint(originalClip, transform.position);
       }
+
     }
 }

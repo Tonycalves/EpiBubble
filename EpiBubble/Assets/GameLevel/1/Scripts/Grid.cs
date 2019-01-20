@@ -121,6 +121,7 @@ namespace com.alphakush{
 			CheckMatchesForBall (minBall);
 			if (bullet.transform.position.y <= -3.54f){
 				this.FinishGame(GameState.Loose);
+				this.game.Win = false;
 				return;
 			}
 			NbrOfShoot++;
@@ -165,6 +166,7 @@ namespace com.alphakush{
 						CheckForDisconnected ();
 						if (gridBalls.Count == 0 ) {
 							this.FinishGame(GameState.Win);
+							this.game.Win = true;
 							return;
 						}
 
