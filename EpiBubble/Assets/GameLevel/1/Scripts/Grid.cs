@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using com.alphakush.events;
 using com.alphakush.sounds;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 namespace com.alphakush{
 	public class Grid : MonoBehaviour {
@@ -11,7 +13,7 @@ namespace com.alphakush{
 		public int ROWS = 24;
 		public int COLUMNS = 17;
 		public float TILE_SIZE = 0.48f;
-		public float GRID_SPEED = 0.2f;
+		public float GRID_SPEED = 0.0f;
 		public float changeTypeRate = 0.7f;
 		public int emptyLines = 18;
 		public GameObject gridBallGO;
@@ -27,14 +29,27 @@ namespace com.alphakush{
 		public GameController _gamecontroller;
 
 		private int NbrOfShoot;
+		private int moduloShoot;
 		private bool GridDown;
 
 		void Start () {
+			int y = SceneManager.GetActiveScene().buildIndex;
+			if (y == 2){
+				moduloShoot = 10;
+			}else if (y == 3){
+				moduloShoot = 6;
+			}else if (y == 4){
+				moduloShoot = 3;
+			}else if (y == 5){
+				GRID_SPEED = 0.2f;
+				moduloShoot = 0;
+			}
+
 			NbrOfShoot = 0;
 			GridDown = false;
 
 			matchList = new List<Ball> ();
-			lastType = (Ball.BALL_TYPE)Random.Range (0, 5);
+			lastType = (Ball.BALL_TYPE)Random.Range (0, 12);
 			typePool = new List<Ball.BALL_TYPE> ();
 
 			var i = 0;
@@ -64,7 +79,7 @@ namespace com.alphakush{
 					var ball = item.GetComponent<Ball>();
 
 					ball.SetBallPosition(this, column, row);
-					ball.SetType (typePool [0]);
+					ball.SetType (typePool[0]);
 					typePool.RemoveAt (0);
 
 					ball.transform.parent = gameObject.transform;
@@ -114,9 +129,7 @@ namespace com.alphakush{
 			}
 			EventManager.NbrOfShoot();
 			bullet.gameObject.SetActive (false);
-            Debug.Log("Bullet type = " + bullet.type);
             minBall.SetType(bullet.type);
-            Debug.Log("minBall type = " + minBall.type);
             minBall.gameObject.SetActive (true);
 			CheckMatchesForBall (minBall);
 			if (bullet.transform.position.y <= -3.54f){
@@ -250,7 +263,7 @@ namespace com.alphakush{
 		Ball.BALL_TYPE GetBallType () {
 			var random = Random.Range (0.0f, 1.0f);
 			if (random > changeTypeRate) {
-				lastType = (Ball.BALL_TYPE)Random.Range (0, 5);
+				lastType = (Ball.BALL_TYPE)Random.Range (0, 12);
 			}
 			return lastType;
 		}
@@ -370,19 +383,22 @@ namespace com.alphakush{
 
 		void Update () {
 			var p = transform.position;
-			if (NbrOfShoot % 10 == 0 && GridDown == true) {
-				p.y -= 0.3f;
-				transform.position = p;
-				if (gridBalls[gridBalls.Count - 1][0].transform.position.y < 6 ) {
-					AddLine();
+			if (moduloShoot == 0){
+					p.y -= Time.deltaTime * GRID_SPEED;
+					transform.position = p;
+					if (gridBalls [gridBalls.Count - 1] [0].transform.position.y < 6 ) {
+						AddLine();
+					}
+			} else {
+				if (NbrOfShoot % moduloShoot == 0 && GridDown == true) {
+					p.y -= 0.3f;
+					transform.position = p;
+					if (gridBalls[gridBalls.Count - 1][0].transform.position.y < 6 ) {
+						AddLine();
+					}
+					GridDown = false;
 				}
-				GridDown = false;
 			}
-			//p.y -= Time.deltaTime * GRID_SPEED;
-			// transform.position = p;
-			// if (gridBalls[gridBalls.Count - 1][0].transform.position.y < 6 ) {
-			// 	AddLine();
-			// }
 		}
 
 		private static System.Random rng = new System.Random(); 

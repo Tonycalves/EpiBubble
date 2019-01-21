@@ -5,12 +5,20 @@ namespace com.alphakush{
 	public class Ball : MonoBehaviour {
 
 		public enum BALL_TYPE {
-			NONE = -1,
-			TYPE_1,
-			TYPE_2,
-			TYPE_3,
-			TYPE_4,
-			TYPE_5
+			NONE = -1, // Aucun
+			TYPE_1, // Bleu
+			TYPE_2, //Vert
+			TYPE_3, //pink
+			TYPE_4,//red
+			TYPE_5,//yellow
+			TYPE_6,//marron
+			TYPE_7,//cyan
+			TYPE_8,//fuchia
+			TYPE_9,//gris
+			TYPE_10,//lime
+			TYPE_11,//noir
+			TYPE_12,//purple
+			TYPE_13//silver
 		}
 		public GameObject[] colorsGO;
 		[HideInInspector]

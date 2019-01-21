@@ -16,7 +16,7 @@ namespace com.alphakush.gui{
 		protected override void  Start () {
 			mycanvas = GameObject.Find("Canvas").GetComponent<Canvas>();
 			Resultgame = GameObject.Find("GameState").GetComponent<Text>();
-			if (game.Win = true){
+			if (game.Win == true){
 				SoundManager.Instance.WinSound();
 				} else {
 					SoundManager.Instance.LooseSound();

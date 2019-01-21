@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using com.alphakush.events;
 using com.alphakush.gui;
 using com.alphakush.sounds;
+using UnityEngine.UI;
 
 namespace com.alphakush {
 	public class RayCastShooter : MonoBehaviour {
+
+		[HideInInspector]
 
 		public GameObject[] colorsGO;
 		public GameObject[] colorsGO2;
@@ -32,6 +35,8 @@ namespace com.alphakush {
 		private float bulletIncrement = 0.0f;
 		private float xArrow;
 		private float yArrow;
+		public Text BubleColourLabel;
+		public Text BubleColourActu;
 
 		// Use this for initialization
 		void Start () {
@@ -40,6 +45,8 @@ namespace com.alphakush {
 			RandomColourReady = false;
 			dots = new List<Vector2> ();
 			dotsPool = new List<GameObject> ();
+			BubleColourLabel = GameObject.Find("Colour").GetComponent<Text>();
+			BubleColourActu = GameObject.Find("ColourActuel").GetComponent<Text>();
 
 			var i = 0;
 			var alpha = 1.0f / maxDots;
@@ -86,8 +93,35 @@ namespace com.alphakush {
 			foreach (var go in colorsGO) {
 				go.SetActive(false);
 			}
-			type = (Ball. BALL_TYPE)Random.Range(0,5);
+			type = (Ball. BALL_TYPE)Random.Range(0,12);
 			colorsGO[(int) type].SetActive(true);
+			if (type == Ball.BALL_TYPE.TYPE_1){
+				BubleColourActu.text = "Blue";
+			} else if (type == Ball.BALL_TYPE.TYPE_2) {
+				BubleColourActu.text = "Green";
+			} else if (type == Ball.BALL_TYPE.TYPE_3){
+				BubleColourActu.text = "White";
+			} else if (type == Ball.BALL_TYPE.TYPE_4) {
+				BubleColourActu.text = "Red";
+			} else if (type == Ball.BALL_TYPE.TYPE_5){
+				BubleColourActu.text = "Yellow";
+			} else if (type == Ball.BALL_TYPE.TYPE_6) {
+				BubleColourActu.text = "Maroon";
+			} else if (type == Ball.BALL_TYPE.TYPE_7) {
+				BubleColourActu.text = "Cyan";
+			} else if (type == Ball.BALL_TYPE.TYPE_8){
+				BubleColourActu.text = "Fuchsia";
+			} else if (type == Ball.BALL_TYPE.TYPE_9) {
+				BubleColourActu.text = "Grey";
+			} else if (type == Ball.BALL_TYPE.TYPE_10) {
+				BubleColourActu.text = "Lime";
+			} else if (type == Ball.BALL_TYPE.TYPE_11) {
+				BubleColourActu.text = "Noir";
+			} else if (type == Ball.BALL_TYPE.TYPE_12) {
+				BubleColourActu.text = "Purple";
+			} else if (type == Ball.BALL_TYPE.TYPE_13) {
+				BubleColourActu.text = "Silver";
+			}
 		}
 
 		public void SetBubbleColour() {
@@ -95,13 +129,68 @@ namespace com.alphakush {
 				go.SetActive(false);
 			}
 			colorsGO[(int) type].SetActive(true);
+			if (type == Ball.BALL_TYPE.TYPE_1){
+				BubleColourActu.text = "Blue";
+			} else if (type == Ball.BALL_TYPE.TYPE_2) {
+				BubleColourActu.text = "Green";
+			} else if (type == Ball.BALL_TYPE.TYPE_3){
+				BubleColourActu.text = "White";
+			} else if (type == Ball.BALL_TYPE.TYPE_4) {
+				BubleColourActu.text = "Red";
+			} else if (type == Ball.BALL_TYPE.TYPE_5){
+				BubleColourActu.text = "Yellow";
+			} else if (type == Ball.BALL_TYPE.TYPE_6) {
+				BubleColourActu.text = "Maroon";
+			} else if (type == Ball.BALL_TYPE.TYPE_7) {
+				BubleColourActu.text = "Cyan";
+			} else if (type == Ball.BALL_TYPE.TYPE_8){
+				BubleColourActu.text = "Fuchsia";
+			} else if (type == Ball.BALL_TYPE.TYPE_9) {
+				BubleColourActu.text = "Grey";
+			} else if (type == Ball.BALL_TYPE.TYPE_10) {
+				BubleColourActu.text = "Lime";
+			} else if (type == Ball.BALL_TYPE.TYPE_11) {
+				BubleColourActu.text = "Noir";
+			} else if (type == Ball.BALL_TYPE.TYPE_12) {
+				BubleColourActu.text = "Purple";
+			} else if (type == Ball.BALL_TYPE.TYPE_13) {
+				BubleColourActu.text = "Silver";
+			}
 		}
 
 		public void RandomNextBubble() {
-			Nexttype = (Ball. BALL_TYPE)Random.Range(0,5);
+			Nexttype = (Ball. BALL_TYPE)Random.Range(0,12);
 			Nextbullet.SetType(Nexttype);
 			Nextbullet.gameObject.SetActive (true);
 			RandomColourReady = true;
+			if (Nexttype == Ball.BALL_TYPE.TYPE_1){
+				BubleColourLabel.text = "Blue";
+			} else if (Nexttype == Ball.BALL_TYPE.TYPE_2) {
+				BubleColourLabel.text = "Green";
+			} else if (Nexttype == Ball.BALL_TYPE.TYPE_3){
+				BubleColourLabel.text = "White";
+			} else if (Nexttype == Ball.BALL_TYPE.TYPE_4) {
+				BubleColourLabel.text = "Red";
+			} else if (Nexttype == Ball.BALL_TYPE.TYPE_5){
+				BubleColourLabel.text = "Yellow";
+			} else if (Nexttype == Ball.BALL_TYPE.TYPE_6) {
+				BubleColourLabel.text = "Maroon";
+			} else if (Nexttype == Ball.BALL_TYPE.TYPE_7) {
+				BubleColourLabel.text = "Cyan";
+			} else if (Nexttype == Ball.BALL_TYPE.TYPE_8){
+				BubleColourLabel.text = "Fuchsia";
+			} else if (Nexttype == Ball.BALL_TYPE.TYPE_9) {
+				BubleColourLabel.text = "Grey";
+			} else if (Nexttype == Ball.BALL_TYPE.TYPE_10) {
+				BubleColourLabel.text = "Lime";
+			} else if (Nexttype == Ball.BALL_TYPE.TYPE_11) {
+				BubleColourLabel.text = "Noir";
+			} else if (Nexttype == Ball.BALL_TYPE.TYPE_12) {
+				BubleColourLabel.text = "Purple";
+			} else if (Nexttype == Ball.BALL_TYPE.TYPE_13) {
+				BubleColourLabel.text = "Silver";
+			}
+			
 		}
 
 		public void HandleTouchMove (Vector2 touch) {

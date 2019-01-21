@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SoundController : MonoBehaviour
 {
-	public AudioClip GameSong;
+  public AudioClip GameSong;
 
     public static SoundController soundcontroller;
     // Start is called before the first frame update
